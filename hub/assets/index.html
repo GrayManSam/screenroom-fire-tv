@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Screenroom</title>
+  <link rel="stylesheet" href="screenroom.css">
+  <script src="screenroom.js" defer></script>
+</head>
+<body>
+  <main class="console">
+    <header class="masthead">
+      <div class="brand"><span class="brand-mark icon" aria-hidden="true" style="--icon: url(icons/layers.svg)"></span> Screenroom</div>
+      <span class="remote-hint">← → <span>Navigate</span> <kbd>OK</kbd> <span>Open</span></span>
+      <div class="utilities" role="group" aria-label="Screenroom controls">
+        <button type="button" class="utility" id="sound" aria-label="Interface sounds" aria-pressed="true">
+          <span class="icon" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="utility" id="settings" aria-label="Screenroom settings">
+          <span class="icon" aria-hidden="true" style="--icon: url(icons/settings.svg)"></span>
+        </button>
+      </div>
+    </header>
+    <section class="feature" data-active="0" aria-labelledby="title">
+      <div class="grid" aria-hidden="true"></div>
+      <div class="orbital" aria-hidden="true">
+        <div class="orbit orbit-outer"></div>
+        <div class="orbit orbit-inner"></div>
+        <div class="planet"></div>
+        <div class="horizon"></div>
+      </div>
+      <div class="intro">
+        <p class="category" id="category"></p>
+        <h1 id="title"></h1>
+        <p class="description" id="description"></p>
+      </div>
+    </section>
+    <nav aria-label="Streaming apps" class="dock">
+      <button type="button" class="app" data-app="0">
+        <span class="symbol" aria-hidden="true"><span class="icon" style="--icon: url(icons/film.svg)"></span></span>
+        <span class="name">MovieBox</span>
+        <span class="arrow icon" aria-hidden="true" style="--icon: url(icons/arrow-up-right.svg)"></span>
+      </button>
+      <button type="button" class="app" data-app="1">
+        <span class="symbol" aria-hidden="true"><span class="icon" style="--icon: url(icons/library-big.svg)"></span></span>
+        <span class="name">Jellyfin</span>
+        <span class="arrow icon" aria-hidden="true" style="--icon: url(icons/arrow-up-right.svg)"></span>
+      </button>
+      <button type="button" class="app" data-app="2">
+        <span class="symbol" aria-hidden="true"><span class="icon" style="--icon: url(icons/play.svg)"></span></span>
+        <span class="name">YouTube</span>
+        <span class="arrow icon" aria-hidden="true" style="--icon: url(icons/arrow-up-right.svg)"></span>
+      </button>
+    </nav>
+    <section id="preferences" class="preferences" aria-labelledby="preferences-title" hidden>
+      <button type="button" class="utility" id="back" aria-label="Back to Screenroom">←</button>
+      <h1 id="preferences-title">Settings</h1>
+      <div class="settings-list">
+        <button type="button" id="settings-sound" aria-pressed="true"><span>Interface sounds</span><span class="value"></span></button>
+        <button type="button" id="contrast" aria-pressed="false"><span>High contrast</span><span class="value"></span></button>
+        <button type="button" id="theme"><span>Appearance</span><span class="value" aria-live="polite"></span></button>
+        <dl>
+          <div><dt>Display output</dt><dd id="display-output"></dd></div>
+          <div><dt>Advertised HDR</dt><dd id="display-hdr"></dd></div>
+          <div><dt>Media volume</dt><dd id="media-volume"></dd></div>
+        </dl>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

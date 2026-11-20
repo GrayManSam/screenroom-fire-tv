@@ -1,0 +1,4 @@
+Screenroom is distributed under Apache License 2.0.
+Bundled Lucide icons retain their upstream license in hub/assets/icons/LICENSE.
+The optional Karat HDMI-CEC startup helper retains its Apache-2.0 license and
+upstream attribution in hub/platform/karat-cec-startup/.

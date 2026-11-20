@@ -1,0 +1,11 @@
+/inventory/
+/artifacts/
+*.apk
+*.apks
+__pycache__/
+*.p12
+*.jks
+*.keystore
+*.idsig
+.env
+.env.local
