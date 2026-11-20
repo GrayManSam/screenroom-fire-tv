@@ -42,3 +42,8 @@ Icons are bundled from [Lucide 0.468.0](https://github.com/lucide-icons/lucide/t
 Screenroom 1.5 adds an Appearance control in Settings. Choose Follow app,
 Indigo, Ocean, or Ember. The theme is saved locally and works alongside the
 high-contrast preference.
+
+Screenroom 1.6 adds saved Standard, Large, and Extra large text sizes and
+lists the audio outputs Android reports. In Settings, press Down from
+Text size to bring the diagnostics into view. Listed audio outputs describe
+available Android endpoints, which can differ from the receiver's active route.

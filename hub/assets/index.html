@@ -59,9 +59,11 @@
         <button type="button" id="settings-sound" aria-pressed="true"><span>Interface sounds</span><span class="value"></span></button>
         <button type="button" id="contrast" aria-pressed="false"><span>High contrast</span><span class="value"></span></button>
         <button type="button" id="theme"><span>Appearance</span><span class="value" aria-live="polite"></span></button>
-        <dl>
+        <button type="button" id="text-size"><span>Text size</span><span class="value" aria-live="polite"></span></button>
+        <dl id="diagnostics" tabindex="0" aria-label="Device diagnostics">
           <div><dt>Display output</dt><dd id="display-output"></dd></div>
           <div><dt>Advertised HDR</dt><dd id="display-hdr"></dd></div>
+          <div><dt>Available audio outputs</dt><dd id="audio-outputs"></dd></div>
           <div><dt>Media volume</dt><dd id="media-volume"></dd></div>
         </dl>
       </div>

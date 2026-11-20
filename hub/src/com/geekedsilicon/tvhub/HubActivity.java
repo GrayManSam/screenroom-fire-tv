@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.AudioDeviceInfo;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.view.Display;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Locale;
 import android.view.KeyEvent;
 import android.webkit.JavascriptInterface;
@@ -141,6 +144,36 @@ public final class HubActivity extends Activity {
                     || "ocean".equals(value) || "ember".equals(value)) {
                 getPreferences(MODE_PRIVATE).edit().putString("appearance", value).apply();
             }
+        }
+
+        @JavascriptInterface public String textSize() {
+            return getPreferences(MODE_PRIVATE).getString("textSize", "standard");
+        }
+
+        @JavascriptInterface public void setTextSize(String value) {
+            if ("standard".equals(value) || "large".equals(value) || "extra-large".equals(value)) {
+                getPreferences(MODE_PRIVATE).edit().putString("textSize", value).apply();
+            }
+        }
+
+        @JavascriptInterface public String audioOutputs() {
+            AudioManager audio = getSystemService(AudioManager.class);
+            if (audio == null) return "Unavailable";
+            Set<String> outputs = new LinkedHashSet<>();
+            for (AudioDeviceInfo device : audio.getDevices(AudioManager.GET_DEVICES_OUTPUTS)) {
+                switch (device.getType()) {
+                    case AudioDeviceInfo.TYPE_HDMI: outputs.add("HDMI"); break;
+                    case AudioDeviceInfo.TYPE_HDMI_ARC: outputs.add("HDMI ARC"); break;
+                    case AudioDeviceInfo.TYPE_BLUETOOTH_A2DP: outputs.add("Bluetooth"); break;
+                    case AudioDeviceInfo.TYPE_BUILTIN_SPEAKER: outputs.add("Built-in speaker"); break;
+                    case AudioDeviceInfo.TYPE_WIRED_HEADPHONES:
+                    case AudioDeviceInfo.TYPE_WIRED_HEADSET: outputs.add("Wired headphones"); break;
+                    case AudioDeviceInfo.TYPE_USB_DEVICE:
+                    case AudioDeviceInfo.TYPE_USB_HEADSET: outputs.add("USB audio"); break;
+                    default: outputs.add("Other output");
+                }
+            }
+            return outputs.isEmpty() ? "None reported" : String.join(" · ", outputs);
         }
 
         @JavascriptInterface public String displayOutput() {

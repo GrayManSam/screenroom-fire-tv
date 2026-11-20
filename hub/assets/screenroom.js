@@ -17,15 +17,21 @@ const preferences = document.getElementById("preferences");
 const settingsSound = document.getElementById("settings-sound");
 const contrast = document.getElementById("contrast");
 const theme = document.getElementById("theme");
+const textSize = document.getElementById("text-size");
 const back = document.getElementById("back");
 const home = document.querySelectorAll(".masthead, .feature, .dock");
-const settingsControls = [back, settingsSound, contrast, theme];
+const settingsControls = [back, settingsSound, contrast, theme, textSize, document.getElementById("diagnostics")];
 const themes = [
   ["app", "Follow app"],
   ["indigo", "Indigo"],
   ["ocean", "Ocean"],
   ["ember", "Ember"],
 ];
+const textSizes = [
+  ["standard", "Standard"], ["large", "Large"], ["extra-large", "Extra large"],
+];
+const savedTextSize = bridge ? bridge.textSize() : "standard";
+let textSizeIndex = Math.max(0, textSizes.findIndex(([id]) => id === savedTextSize));
 let selected = 0;
 let soundsEnabled = bridge ? bridge.soundsEnabled() : true;
 let highContrast = bridge ? bridge.highContrast() : false;
@@ -94,12 +100,26 @@ theme.addEventListener("click", () => {
   clickSound();
 });
 
+function updateTextSize() {
+  const [id, label] = textSizes[textSizeIndex];
+  document.documentElement.dataset.textSize = id;
+  textSize.querySelector(".value").textContent = label;
+}
+
+textSize.addEventListener("click", () => {
+  textSizeIndex = (textSizeIndex + 1) % textSizes.length;
+  updateTextSize();
+  if (bridge) bridge.setTextSize(textSizes[textSizeIndex][0]);
+  clickSound();
+});
+
 settings.addEventListener("click", () => {
   clickSound();
   home.forEach((element) => { element.hidden = true; });
   preferences.hidden = false;
   document.getElementById("display-output").textContent = bridge ? bridge.displayOutput() : "Device only";
   document.getElementById("display-hdr").textContent = bridge ? bridge.displayHdr() : "Device only";
+  document.getElementById("audio-outputs").textContent = bridge ? bridge.audioOutputs() : "Device only";
   document.getElementById("media-volume").textContent = bridge ? bridge.mediaVolume() : "Device only";
   settingsSound.focus();
 });
@@ -122,6 +142,9 @@ window.navigate = (direction) => {
     const offset = direction === "up" ? -1 : 1;
     const index = settingsControls.indexOf(active);
     settingsControls[Math.max(0, Math.min(settingsControls.length - 1, index + offset))].focus();
+    if (document.activeElement.id === "diagnostics") {
+      document.activeElement.scrollIntoView({ block: "end" });
+    }
     return;
   }
   const utility = utilities.includes(active);
@@ -154,5 +177,6 @@ document.addEventListener("keydown", (event) => {
 updateSound();
 updateContrast();
 updateTheme();
+updateTextSize();
 show(0);
 if (bridge) dock[0].focus();
